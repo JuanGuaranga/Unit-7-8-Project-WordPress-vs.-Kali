@@ -41,10 +41,30 @@ Type: XSS
 Affects: WordPress <=4.7.2
 Patched: WordPress 4.7.3
 
-### WordPress core stored XSS
+###  Unauthenticated Stored Cross-Site Scripting
 
 <img src="WordPress core stored XSS.gif" alt="WordPress core stored XSS">
+ 
+
+This exploit requires an attacker to have an account with posting capabilities (i.e. a minimum of Contributor level permissions). In this vulnerability, an attacker can insert arbitrary Javascript via a specially-crafted shortcode onto a page or a post.
+
+Recreating the Exploit
+Gain access to an account with at least posting-level permissions via social engineering or another exploit. (Alternatively, if the site allows unauthenticated users to post via some special configuration, then an account is not needed.)
+Either create a new page/post or modify an existing one.
+Use the HTML editor (not the Visual editor) to insert code similar to the following and post:
+<a href="[caption code=">]</a><a title=" <Event-attribute-with-JS-code-here>  ">link</a>
+
+
+Other Details
+CVEs: 2015-5622 and 2015-5623
+Type: XSS
+Affects: WordPress <=4.2.2
+Patched: WordPress 4.2.3
  
 ### Wpscan vs. WP 4.2
 
 <img src="challenge 7.gif" alt="Wpscan vs. WP 4.2">
+ 
+ For the attack to succeed the following conditions have to be met:
+- A WordPress admin uploads a malicious image file requested by a user this admin trusts or a popular malicious image that was spread via social media. This involves social engineering. In the Proof of Concept the file name cengizhansahinsumofpwn<img src=a onerror=alert(document.cookie)>.jpg was used.
+- An attacker can now determine if the file name with which the malicious file is available on the WordPress site. With this information he can spread the URL to end users and the WordPress admin.
